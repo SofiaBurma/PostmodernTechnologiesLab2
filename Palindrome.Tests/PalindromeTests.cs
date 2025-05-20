@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
-using System;
-using System.IO;
+﻿//using NUnit.Framework;
+//using System;
+//using System.IO;
 using lab2;
 namespace Palindrome.Tests
 {
@@ -27,7 +27,7 @@ namespace Palindrome.Tests
         }
 
         [Test]
-        public void Test1()
+        public void ValidPalindrome()
         {
             var palindrome = new Palindrome();
             string input = "radar";
@@ -38,7 +38,7 @@ namespace Palindrome.Tests
         }
 
         [Test]
-        public void Test2()
+        public void InputWithSpace()
         {
             var palindrome = new Palindrome();
             string input = "ra dar";
@@ -49,7 +49,7 @@ namespace Palindrome.Tests
         }
 
         [Test]
-        public void Test3()
+        public void NonPalindrome()
         {
             var palindrome = new Palindrome();
             string input = "rad";
@@ -60,7 +60,7 @@ namespace Palindrome.Tests
         }
 
         [Test]
-        public void Main_ValidPalindrome_PrintsTrueAndNoErrors()
+        public void ValidInput_True()
         {
             _consoleInput = new StringReader("radar\n");
             Console.SetIn(_consoleInput);
@@ -75,7 +75,7 @@ namespace Palindrome.Tests
         }
 
         [Test]
-        public void Main_InputWithSpace_PrintsErrorMessage()
+        public void InputWithSpace_Error()
         {
             _consoleInput = new StringReader("ra dar\n");
             Console.SetIn(_consoleInput);
@@ -90,7 +90,7 @@ namespace Palindrome.Tests
         }
 
         [Test]
-        public void Main_NonPalindrome_PrintsFalseAndNoErrors()
+        public void NotPalindrome_False()
         {
             _consoleInput = new StringReader("hello\n");
             Console.SetIn(_consoleInput);
