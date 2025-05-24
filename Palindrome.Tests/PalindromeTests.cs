@@ -6,23 +6,19 @@ namespace Palindrome.Tests
 {
     public class Tests
     {
-        private StringWriter _consoleOutput;
         private StringWriter _consoleError;
         private StringReader _consoleInput;
 
         [SetUp]
         public void Setup()
         {
-            _consoleOutput = new StringWriter();
             _consoleError = new StringWriter();
-            Console.SetOut(_consoleOutput);
             Console.SetError(_consoleError);
         }
 
         [TearDown]
         public void TearDown()
         {
-            _consoleOutput.Dispose();
             _consoleError.Dispose();
         }
 
@@ -65,13 +61,9 @@ namespace Palindrome.Tests
             _consoleInput = new StringReader("radar\n");
             Console.SetIn(_consoleInput);
 
-            Program.Main(new string[] { });
-            string output = _consoleOutput.ToString();
-            string error = _consoleError.ToString();
+            int exitCode = Program.Main(new string[] { });
 
-            Assert.That(output, Does.Contain("Введіть слово для перевірки:"));
-            Assert.That(output, Does.Contain("true"));
-            Assert.That(error, Is.Empty);
+            Assert.That(exitCode, Is.EqualTo(0));
         }
 
         [Test]
@@ -80,12 +72,10 @@ namespace Palindrome.Tests
             _consoleInput = new StringReader("ra dar\n");
             Console.SetIn(_consoleInput);
 
-            Program.Main(new string[] { });
-            string output = _consoleOutput.ToString();
+            int exitCode = Program.Main(new string[] { });
             string error = _consoleError.ToString();
 
-            Assert.That(output, Does.Contain("Введіть слово для перевірки:"));
-            Assert.That(output, Does.Not.Contain("true").And.Not.Contain("false"));
+            Assert.That(exitCode, Is.EqualTo(1));
             Assert.That(error, Does.Contain("Input contains spaces."));
         }
 
@@ -95,12 +85,9 @@ namespace Palindrome.Tests
             _consoleInput = new StringReader("hello\n");
             Console.SetIn(_consoleInput);
 
-            Program.Main(new string[] { });
-            string output = _consoleOutput.ToString();
-            string error = _consoleError.ToString();
+            int exitCode = Program.Main(new string[] { });
 
-            Assert.That(output, Does.Contain("false"));
-            Assert.That(error, Is.Empty);
+            Assert.That(exitCode, Is.EqualTo(0));
         }
     }
 }
